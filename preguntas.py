@@ -11,9 +11,17 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
-
-def pregunta_01():
+import fileinput
+import glob
+from itertools import groupby 
+import csv
+dat=[]
+with open('data.csv','r') as datos:
+    lector=csv.reader(datos,delimiter='\t')
+    for i in lector:
+        dat.append(i)
+def pregunta_01(x):
+    s=0
     """
     Retorne la suma de la segunda columna.
 
@@ -21,10 +29,13 @@ def pregunta_01():
     214
 
     """
-    return
+    for j in x:
+        s+=int(j[1])
+    return s
+#pregunta_01(dat)
 
 
-def pregunta_02():
+def pregunta_02(z):
     """
     Retorne la cantidad de registros por cada letra de la primera columna como la lista
     de tuplas (letra, cantidad), ordendas alfabéticamente.
@@ -39,10 +50,20 @@ def pregunta_02():
     ]
 
     """
-    return
+    ordenado=sorted(z,key=lambda x: x[0])
+    contador={}
+    for i in ordenado:
+        letra=i[0]
+        if letra in contador: 
+            contador[letra]+=1
+        else:
+            contador[letra]=1
+    res=list(contador.items())
+    return res
+pregunta_02(dat)
 
 
-def pregunta_03():
+def pregunta_03(z):
     """
     Retorne la suma de la columna 2 por cada letra de la primera columna como una lista
     de tuplas (letra, suma) ordendas alfabeticamente.
@@ -57,7 +78,17 @@ def pregunta_03():
     ]
 
     """
-    return
+    ordenado=sorted(z,key=lambda x: x[0])
+    contador={}
+    for i in ordenado:
+        letra=i[0]
+        sum=int(i[1])
+        if letra in contador: 
+            contador[letra]+=sum
+        else:
+            contador[letra]=sum
+    res=list(contador.items())
+    return res
 
 
 def pregunta_04():
